@@ -1,0 +1,7 @@
+{
+  "id": "hello-inovex", 
+  "cmd": "while [ true ] ; do echo 'I am awesome!' ; sleep 5 ; done",
+  "cpus": 0.1,
+  "mem": 10.0,
+  "instances": 5
+}

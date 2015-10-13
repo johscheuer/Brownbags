@@ -1,0 +1,43 @@
+{
+  "id": "/demo-group",
+  "groups": [
+    {
+      "id": "./forward",
+      "apps": [
+         {  
+            "id": "./fc", 
+            "cmd": "for i in $(seq 1 100); do echo $i; sleep 1; done",
+            "cpus": 0.1,
+            "mem": 10.0,
+            "instances": 1
+          },
+          {  
+            "id": "./hellofc", 
+            "cmd": "for i in $(seq 1 100); do echo 'Hello GrikdKA'; sleep 1; done",
+            "cpus": 0.1,
+            "mem": 10.0,
+            "instances": 1
+          }
+       ]
+    },{
+      "id": "./backward",
+      "dependencies": ["../forward"],
+      "apps": [
+         {
+            "id": "./bc", 
+            "cmd": "for i in $(seq 1 100); do echo $i; sleep 1; done",
+            "cpus": 0.1,
+            "mem": 10.0,
+            "instances": 1
+         },
+         {  
+            "id": "./hellobc", 
+            "cmd": "for i in $(seq 1 100); do echo 'Hello GrikdKA' | rev; sleep 1; done",
+            "cpus": 0.1,
+            "mem": 10.0,
+            "instances": 1
+         }
+      ]
+    }
+  ]
+}

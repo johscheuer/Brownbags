@@ -1,0 +1,10 @@
+{
+    "id": "hello-inovex-packed", 
+    "cmd": "chmod u+x ./hello-inovex.sh && ./hello-inovex.sh",
+    "cpus": 0.1,
+    "mem": 10.0,
+    "instances": 1,
+    "uris": [
+        "http://10.141.141.10:8000/hello-inovex.tar.gz"
+    ]
+}

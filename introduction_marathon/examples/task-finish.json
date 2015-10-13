@@ -1,0 +1,7 @@
+{
+    "id": "task-finish", 
+    "cmd": "echo start; sleep 5; echo finish",
+    "cpus": 0.1,
+    "mem": 10.0,
+    "instances": 3
+}
