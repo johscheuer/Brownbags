@@ -1,6 +1,6 @@
 # Introduction to Marathon
 ## Slides
-
+[Slides](slides/index.html)
 ## Hands-on
 ### Vagrant setup
 ```Bash
