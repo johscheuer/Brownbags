@@ -4,8 +4,6 @@
 ## Hands-on
 ### Vagrant setup
 ```Bash
-git clone https://github.com/everpeace/vagrant-mesos
-
 git clone https://github.com/mesosphere/playa-mesos.git
 cd playa-mesos
 bin/test
@@ -16,7 +14,7 @@ vagrant up
 The Web UI is available at http://10.141.141.10:5050/#/ and marathon at http://10.141.141.10:8080
 ### Running the examples
 ```Bash
-cat hello-inovex.json 
+cat hello-inovex.json cd v
 {
   "id": "hello-inovex", 
   "cmd": "while [ true ] ; do echo 'Hello inovex' ; sleep 5 ; done",
