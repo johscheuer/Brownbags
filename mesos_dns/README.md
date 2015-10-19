@@ -1,4 +1,4 @@
-# Introduction to Marathon
+# Mesos-DNS - Service discovery in Mesos
 ## Slides
 [Slides](slides/index.html)
 ## Hands-on
