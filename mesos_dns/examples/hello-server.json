@@ -12,5 +12,16 @@
       ]
     }
   },
-  "instances": 3
+  "instances": 3,
+  "healthChecks": [
+      {
+        "protocol": "HTTP",
+        "path": "/health",
+        "gracePeriodSeconds": 3,
+        "intervalSeconds": 10,
+        "portIndex": 0,
+        "timeoutSeconds": 10,
+        "maxConsecutiveFailures": 3
+      }
+    ]
 }

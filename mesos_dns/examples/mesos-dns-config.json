@@ -1,8 +1,8 @@
 mesos-dns-config.json
 {
         "masters": ["127.0.0.1:5050"],
-        "refreshSeconds": 60,
-        "ttl": 60,
+        "refreshSeconds": 5,
+        "ttl": 5,
         "domain": "mesos",
         "port": 53,
         "resolvers": ["8.8.8.8"],
