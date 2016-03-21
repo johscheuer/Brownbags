@@ -1,0 +1,28 @@
+version: "2"
+services:
+  todo-app:
+    image: johscheuer/todo-app-web:v2
+    ports:
+     - "3000"
+    depends_on:
+     - redis-master
+     - redis-slave
+    networks:
+      - front
+      - redis
+  redis-slave:
+    image: johscheuer/redis-slave:v1
+    depends_on:
+     - redis-master
+    networks:
+     - redis
+  redis-master:
+    image: redis
+    networks:
+     - redis
+
+networks:
+  front:
+    driver: overlay
+  redis:
+    driver: overlay

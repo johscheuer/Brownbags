@@ -1,0 +1,35 @@
+version: "2"
+services:
+  todo-app:
+    image: johscheuer/todo-app-web:v2
+    ports:
+     - "3000"
+    depends_on:
+     - redis-master
+     - redis-slave
+    networks:
+      - front
+      - redis
+  redis-slave:
+    image: johscheuer/redis-slave:v1
+    depends_on:
+     - redis-master
+    networks:
+     - redis
+  redis-master:
+    image: redis
+    networks:
+     - redis
+
+networks:
+  front:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.238.0/24
+        gateway: 172.16.238.1
+  redis:
+    driver: bridge
