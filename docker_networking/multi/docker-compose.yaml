@@ -1,5 +1,19 @@
 version: "2"
 services:
+  loadbalancer:
+    image: johscheuer/docker-nginx-loadbalancer
+    # rename loadbalancer
+    container_name: lb
+    ports:
+      - "80:80"
+    environment:
+      - APP_NAME=todo-app-web
+      - CONSUL_URL=${CLUSTER_STORE_IP}:8500
+    depends_on:
+      - todo-app
+    networks:
+      - front
+
   todo-app:
     image: johscheuer/todo-app-web:v2
     ports:
@@ -10,12 +24,14 @@ services:
     networks:
       - front
       - redis
+
   redis-slave:
     image: johscheuer/redis-slave:v1
     depends_on:
      - redis-master
     networks:
      - redis
+
   redis-master:
     image: redis
     networks:

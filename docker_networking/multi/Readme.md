@@ -1,12 +1,30 @@
 # Starting
 
-## Run the example
+## Run the example local
 
 ```bash
 ./start-vms.sh
 eval $(docker-machine env --swarm swarm-master)
 # Validate
 docker info
+# Run docker compose
+docker-compose up -d
+```
+
+## Run the example on digital ocean
+
+```bash
+export DIGITALOCEAN_ACCESS_TOKEN=<TOKEN>
+export DIGITALOCEAN_PRIVATE_NETWORKING=true
+export DIGITALOCEAN_SSH_USER=core
+export DIGITALOCEAN_IMAGE=coreos-alpha
+# Start all VM's
+./start-digital-ocean-vms.sh
+eval $(docker-machine env --swarm swarm-master)
+# Validate
+docker info
+# Get the IP of the cluster store
+export CLUSTER_STORE_IP=$(docker-machine ssh cluster-store 'ifconfig eth1 | grep "inet " | cut -d " " -f 10')
 # Run docker compose
 docker-compose up -d
 ```
