@@ -31,6 +31,9 @@ docker network inspect redis
 docker network inspect front
 ```
 
-## Compose example
+## Compose examples
 
 Inside the directory `single` and `multi` are Docker Compose (and Machine) examples.
+
+- [Local](single/Readme.md)
+- [Multi-Host](multi/Readme.md)
