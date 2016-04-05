@@ -22,10 +22,17 @@ docker-machine create \
     --engine-opt="cluster-advertise=eth1:0" \
     swarm-master
 
+echo "Start Docker Registrator on Swarm Master"
+docker $(docker-machine config swarm-master) run -d \
+    --name=registrator \
+    --hostname=$(docker-machine ip swarm-master) \
+    --volume=/var/run/docker.sock:/tmp/docker.sock \
+    gliderlabs/registrator:latest \
+    consul://$(docker-machine ip cluster-store):8500
+
 for i in {0..2}
 do
 echo "Start Swarm Node 0$i"
-
 docker-machine create \
     --driver virtualbox \
     --swarm \
@@ -33,6 +40,14 @@ docker-machine create \
     --engine-opt="cluster-store=consul://$(docker-machine ip cluster-store):8500" \
     --engine-opt="cluster-advertise=eth1:0" \
     swarm-node-0$i
+
+echo "Start Docker Registrator on Swarm Node 0$i"
+docker $(docker-machine config swarm-node-0$i) run -d \
+    --name=registrator \
+    --hostname=$(docker-machine ip swarm-node-0$i) \
+    --volume=/var/run/docker.sock:/tmp/docker.sock \
+    gliderlabs/registrator:latest \
+    consul://$(docker-machine ip cluster-store):8500
 done
 
 echo "Execute eval $(docker-machine env --swarm swarm-master)"

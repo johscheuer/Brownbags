@@ -45,6 +45,7 @@ docker-machine create \
     --engine-opt="cluster-advertise=eth1:2376" \
     swarm-node-0$i
 
+echo "Start Docker Registrator on Swarm Node 0$i"
 docker $(docker-machine config swarm-node-0$i) run -d \
     --name=registrator \
     --hostname=$(docker-machine ssh swarm-node-0$i 'ifconfig eth1 | grep "inet " | cut -d " " -f 10') \

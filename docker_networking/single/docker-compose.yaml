@@ -17,7 +17,7 @@ services:
     networks:
      - redis
   redis-master:
-    image: redis
+    image: redis:3-alpine
     networks:
      - redis
 

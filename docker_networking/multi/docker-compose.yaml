@@ -1,9 +1,8 @@
 version: "2"
 services:
   loadbalancer:
-    image: johscheuer/docker-nginx-loadbalancer
-    # rename loadbalancer
-    container_name: lb
+    image: johscheuer/docker-nginx-loadbalancer:v1
+    container_name: loadbalancer
     ports:
       - "80:80"
     environment:
@@ -33,7 +32,7 @@ services:
      - redis
 
   redis-master:
-    image: redis
+    image: redis:3-alpine
     networks:
      - redis
 

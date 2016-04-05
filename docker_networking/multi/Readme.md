@@ -7,6 +7,8 @@
 eval $(docker-machine env --swarm swarm-master)
 # Validate
 docker info
+# Get the IP of the cluster store
+export CLUSTER_STORE_IP=$(docker-machine ip cluster-store)
 # Run docker compose
 docker-compose up -d
 ```
@@ -38,7 +40,7 @@ docker network inspect multi_redis
 docker network inspect multi_front
 ...
 # Returns 1 Container
-docker exeec <hash-todo-app> exec ifconfig
+docker exec <hash-todo-app> exec ifconfig
 ```
 
 Fetch the hash of the todo-app and ping the other containers.
@@ -74,3 +76,25 @@ docker kill <hash-redis-slave-1>
 # Restart complete Node
 docker-machine restart swarm-node-0X
 ```
+
+## Loadbalancer
+
+Get the IP address of the LB
+
+```bash
+docker-compose port loadbalancer 80
+```
+
+Watch the loadbalancer in a separate terminal
+
+```
+watch -n 0.5 curl $(docker-compose port loadbalancer 80)/whoami
+```
+
+Scale the todo-app
+
+```
+docker-compose scale todo-app=5
+```
+
+and you can see that the loadbalancer balances between the instances.
