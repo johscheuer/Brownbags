@@ -12,7 +12,7 @@ docker network create -d=bridge redis
 ### Start container
 
 ```bash
-docker run -d --net=redis --net-alias=redis-master --name=redis-maste redis:3-alpine
+docker run -d --net=redis --net-alias=redis-master --name=redis-master redis:3-alpine
 docker run -d --net=redis --net-alias=redis-slave --name=redis-slave johscheuer/redis-slave:v1
 docker run -d --net=front --net-alias=todo-app -p 80:3000 --name=todo-app johscheuer/todo-app-web:v2
 
