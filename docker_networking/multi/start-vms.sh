@@ -27,7 +27,7 @@ docker $(docker-machine config swarm-master) run -d \
     --name=registrator \
     --hostname=$(docker-machine ip swarm-master) \
     --volume=/var/run/docker.sock:/tmp/docker.sock \
-    gliderlabs/registrator:latest \
+    gliderlabs/registrator:v6 \
     consul://$(docker-machine ip cluster-store):8500
 
 for i in {0..2}
@@ -46,7 +46,7 @@ docker $(docker-machine config swarm-node-0$i) run -d \
     --name=registrator \
     --hostname=$(docker-machine ip swarm-node-0$i) \
     --volume=/var/run/docker.sock:/tmp/docker.sock \
-    gliderlabs/registrator:latest \
+    gliderlabs/registrator:v6 \
     consul://$(docker-machine ip cluster-store):8500
 done
 
