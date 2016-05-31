@@ -1,0 +1,55 @@
+version: "2"
+
+services:
+  etcd:
+    image: quay.io/coreos/etcd:v2.3.6
+    networks:
+      demo_net:
+        ipv4_address: 172.16.123.254
+    command: >
+      -name etcd
+      -advertise-client-urls http://172.16.123.254:2379
+      -listen-client-urls http://0.0.0.0:2379
+      -listen-peer-urls http://0.0.0.0:2380
+      -initial-advertise-peer-urls http://172.16.123.254:2380
+      -initial-cluster-token cluster
+      -initial-cluster etcd=http://172.16.123.254:2380
+      -initial-cluster-state new
+  etcd_init:
+    build: etcd_init
+    image: johscheuer/etcd_init:v1
+    depends_on:
+      - etcd
+    networks:
+      - demo_net
+  prod_client:
+    build: client_image
+    image: johscheuer/client_image:v1
+    depends_on:
+      - etcd
+      - etcd_init
+    volumes:
+      - ./prod_confd.toml:/etc/confd/conf.d/app.toml
+      - ./demo.tmpl:/etc/confd/templates/demo.tmpl
+    networks:
+      - demo_net
+  test_client:
+    build: client_image
+    image: johscheuer/client_image:v1
+    depends_on:
+      - etcd
+      - etcd_init
+    volumes:
+      - ./test_confd.toml:/etc/confd/conf.d/app.toml
+      - ./demo.tmpl:/etc/confd/templates/demo.tmpl
+    networks:
+      - demo_net
+
+networks:
+  demo_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.123.0/24
+        gateway: 172.16.123.1

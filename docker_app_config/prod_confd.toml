@@ -1,0 +1,12 @@
+[template]
+prefix = "/prod_demo"
+src = "demo.tmpl"
+dest = "/tmp/myconf.conf"
+owner = "root"
+mode = "0644"
+keys = [
+  "/name",
+  "/range_val",
+]
+check_cmd = "test -e {{.src}}"
+reload_cmd = "echo 'Reload'"
