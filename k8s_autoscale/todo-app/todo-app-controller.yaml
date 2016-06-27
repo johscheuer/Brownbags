@@ -1,0 +1,42 @@
+kind: "ReplicationController"
+apiVersion: "v1"
+metadata:
+  name: "todo-app"
+  labels:
+    name: "todo-app"
+spec:
+  replicas: 1
+  selector:
+    name: "todo-app"
+  template:
+    metadata:
+      labels:
+        name: "todo-app"
+    spec:
+      containers:
+        - name: "todo-app"
+          image: "johscheuer/todo-app-web:v2"
+          resources:
+            limits:
+              cpu: 250m
+              memory: 250Mi
+            requests:
+              cpu: 100m
+              memory: 125Mi
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 15 
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 10 
+            timeoutSeconds: 5

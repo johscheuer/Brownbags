@@ -1,0 +1,26 @@
+kind: "ReplicationController"
+apiVersion: "v1"
+metadata:
+  name: "redis-slave"
+  labels:
+    name: "redis-slave"
+spec:
+  replicas: 1
+  selector:
+    name: "redis-slave"
+  template:
+    metadata:
+      labels:
+        name: "redis-slave"
+    spec:
+      containers:
+        - name: "slave"
+          image: "johscheuer/redis-slave:v1"
+          resources:
+            limits:
+              cpu: 100m
+            requests:
+              cpu: 100m
+          ports:
+            - containerPort: 6379
+              protocol: "TCP"
