@@ -41,7 +41,7 @@ watch kubectl get pods
 Set some load:
 
 ```bash
-boom -c 250 -n 40000 http://10.245.1.3:<Port>
+boom -c 250 -n 30000 http://10.245.1.3:<Port>
 ```
 
 Watch it scale up and down. :)

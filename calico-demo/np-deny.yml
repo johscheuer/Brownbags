@@ -1,0 +1,8 @@
+kind: NetworkPolicy
+apiVersion: extensions/v1beta1
+metadata:
+  name: default-deny
+  namespace: calico-demo
+spec:
+  podSelector:
+    matchLabels: {}
